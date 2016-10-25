@@ -1,6 +1,7 @@
 # vagrant-puppet
 Spin off multiple VMs with the Puppet provisioner using Vagrant and YAML. 
 
+## Getting started
 1. Install VirtualBox & VirtualBox Extensions: [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads)
 2. Install Vagrant: [https://www.vagrantup.com/downloads.html](https://www.vagrantup.com/downloads.html)
 3. Install the landrush Vagrant plugin. This provides DNS among your VMs.
@@ -22,3 +23,6 @@ Spin off multiple VMs with the Puppet provisioner using Vagrant and YAML.
 8. Start the show. 
 
     ```$ vagrant up```
+
+## Provisioning with Puppet 
+The Puppet provisioner will start in `manifests/default.pp`. Define your nodes and their desired classes/include statements here. Modules/class manifests should be placed in the `modules` directory. 
