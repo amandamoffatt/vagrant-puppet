@@ -1,0 +1,22 @@
+---
+- name: puppetnode1.vagrant.test
+  box: centos/7
+  ram: 512
+  ip: 172.28.128.201
+  dns: 8.8.8.8
+  provisioner_repo: http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+  provisioner_package: puppet
+- name: puppetnode2.vagrant.test
+  box: centos/7
+  ram: 512
+  ip: 172.28.128.202
+  dns: 8.8.8.8
+  provisioner_repo: http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+  provisioner_package: puppet
+- name: puppetnode3.vagrant.test
+  box: centos/7
+  ram: 512
+  ip: 172.28.128.203
+  dns: 8.8.8.8
+  provisioner_repo: http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+  provisioner_package: puppet
