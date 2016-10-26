@@ -3,41 +3,35 @@
 
 require 'yaml'
 
-vms = YAML.load_file('VMs.yaml')
+conf = YAML.load_file('VMs.yaml')
 
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  landrush = true
-  landrush_tld = 'vagrant.test'
-
-  config.landrush.enabled = landrush
-  config.landrush.tld = landrush_tld
+  config.landrush.enabled = conf["use_landrush"]
+  config.landrush.tld = conf["tld"]
 
   # For each VM defined in VMs.yaml...
-  vms.each do |vms|
+  conf["vms"].each do |vm|
     # Configure a VM
-    config.vm.define vms["name"] do |server| 
-      server.vm.box = vms["box"]
-      server.vm.hostname = vms["name"]
+    config.vm.define vm["name"]+'.'+conf["tld"] do |server| 
+      server.vm.box = vm["box"]
+      server.vm.hostname = vm["name"]+'.'+conf["tld"]
       server.ssh.insert_key = false
       server.vm.synced_folder ".", "/vagrant", disabled: true
-      server.vm.network "private_network", ip: vms["ip"]
+      server.vm.network "private_network", ip: vm["ip"]
       
-      if landrush == true
-        server.landrush.host_ip_address = vms["ip"]
+      if conf["use_landrush"] == true
+        server.landrush.host_ip_address = vm["ip"]
       end 
       
       server.vm.provider :virtualbox do |vb|
-        vb.name = vms["name"]
-        vb.memory = vms["ram"]
+        vb.name = vm["name"]+'.'+conf["tld"]
+        vb.memory = vm["ram"]
       end
 
-      server.vm.provision "shell" do |s|
-        s.args = [vms["dns"],vms["provisioner_repo"],vms["provisioner_package"]]
-        s.inline = "sudo echo nameserver $1 >> /etc/resolv.conf; sudo rpm -Uvh $2; sudo yum install $3 -y"
-      end
+      config.vm.provision "shell", path: vm["bootstrap_script"], args: [vm["dns"], vm["provisioner_repo"], vm["provisioner_package"]]
 
       server.vm.provision "puppet" do |puppet|
         puppet.manifests_path = "manifests"
