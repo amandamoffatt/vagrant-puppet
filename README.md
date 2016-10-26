@@ -18,9 +18,11 @@ Spin off multiple VMs with the Puppet provisioner using Vagrant and YAML.
 
 6. Edit the `VMs.yaml` file to include information about the VMs you want to create. The default file will create 3x CentOS 7 VMs (puppetnode{1-3}.vagrant.test) with 512 MB RAM, static IPs on the host-only network interfaces, the Google DNS server (8.8.8.8) added to /etc/resolv.conf and the `puppet` package installed from a PuppetLabs yum repository so that the Puppet provisioner can run. At this stage you must include a value for all of the settings for each VM (name, box, ram, ip, dns, provisioner_repo, provisioner_package). Some conditional logic and error checking to come later.
 
-7. If you want to use a TLD other than *.vagrant.test, edit the `landrush_tld = 'vagrant.test'` value in the Vagrantfile.
+7. If you want to use a TLD other than *.vagrant.test, edit the `tld: vagrant.test` value in `VMs.yaml`.
 
-8. Start the show. 
+8. Add any shell commands you'd like to run into the `scripts/bootstrap_linux.sh` script. 
+
+9. Start the show. 
 
     ```$ vagrant up```
 
