@@ -36,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       server.vm.provision "shell" do |s|
         s.args = [vms["dns"],vms["provisioner_repo"],vms["provisioner_package"]]
-        s.inline = "sudo echo nameserver $1 >> /etc/resolv.conf; sudo rpm -Uvh $2 && sudo yum install $3 -y"
+        s.inline = "sudo echo nameserver $1 >> /etc/resolv.conf; sudo rpm -Uvh $2; sudo yum install $3 -y"
       end
 
       server.vm.provision "puppet" do |puppet|
