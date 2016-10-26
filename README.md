@@ -27,7 +27,7 @@ Spin off multiple VMs with the Puppet provisioner using Vagrant and YAML.
 ## Provisioning with Puppet 
 The Puppet provisioner will start in `manifests/default.pp`. Define your nodes and their desired classes/include statements here. Module code and class manifests should be placed in the `modules` directory. 
 
-To force the Puppet provisioner to run again on an already-running VM:
+To force the Puppet provisioner to run again on an already-running VM (i.e. after you make changes to the Puppet code):
 
    ```$ vagrant provision puppetnode1.vagrant.test```
 
