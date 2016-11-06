@@ -15,9 +15,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # For each VM defined in VMs.yaml...
   conf["vms"].each do |vm|
     # Configure a VM
-    config.vm.define vm["name"]+'.'+conf["tld"] do |server| 
+    config.vm.define vm["name"] do |server| 
       server.vm.box = vm["box"]
-      server.vm.hostname = vm["name"]+'.'+conf["tld"]
+      server.vm.hostname = vm["name"]
       server.ssh.insert_key = false
       server.vm.synced_folder ".", "/vagrant", disabled: true
       server.vm.network "private_network", ip: vm["ip"]
@@ -27,7 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end 
       
       server.vm.provider :virtualbox do |vb|
-        vb.name = vm["name"]+'.'+conf["tld"]
+        vb.name = vm["name"]
         vb.memory = vm["ram"]
       end
 
